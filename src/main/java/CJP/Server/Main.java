@@ -20,19 +20,7 @@ public class Main {
     private static Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     public static void main(String[] args) {
         screen();
-/*
-        try {
 
-            ServerSocket server = new ServerSocket(100);
-            String Svr_address = String.valueOf(server.getLocalSocketAddress()) + String.valueOf(server.getLocalPort());
-            System.out.println(Svr_address);
-
-            MultiCast cast = new MultiCast(2500);
-            cast.SetGroup(InetAddress.getByName("239.0.255.1"));
-            cast.Start(Device_name,String.valueOf(server.getLocalSocketAddress()),String.valueOf(server.getLocalPort()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
     }
     private static void screen(){
         Frame frame = new Frame(Title);
