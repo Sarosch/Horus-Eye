@@ -1,4 +1,4 @@
-package CJP.Server;
+package CJP.Server.Suporte;
 
 
 import java.sql.*;

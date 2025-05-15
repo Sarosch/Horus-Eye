@@ -1,4 +1,4 @@
-package CJP.Server;
+package CJP.Server.Suporte;
 
 import javax.swing.*;
 import javax.swing.text.html.Option;
@@ -18,6 +18,11 @@ public class Frame{
 
     private Map<String,JPanel> Activitys = new HashMap<>();
 
+    /**
+     * Set the {@link JFrame} and the JFrame Manipulator
+     *
+     * @param Title - {@link String} Set the JFrame name
+     */
     public Frame(String Title){
         root = new JFrame(Title);
         root.setSize(screen);
@@ -28,13 +33,28 @@ public class Frame{
 
 
     }
+
+    /**
+     *
+     * @return - Root {@link Container}/{@link JFrame} for external manipulation
+     */
     public JFrame getRoot(){
         return root;
     }
+
+    /**Set the Root {@link Container}/{@link JFrame} with external pre-Setting
+     *
+     * @param root - {@link JFrame} Frame with external pre-Setting
+     */
     public void setRoot(JFrame root){
         this.root = root;
     }
 
+    /**Add the {@link Activity}/{@link JPanel} for auto manipulation and Index in control system
+     *
+     * @param ActivityName - {@link String} with name for calling in manipulattion methods
+     * @param Activity - {@link JPanel} for add in root and index in control system
+     */
     public void AddActivity(String ActivityName,JPanel Activity){
         Activitys.put(ActivityName,Activity);
         Activity.setName(ActivityName);
@@ -45,6 +65,29 @@ public class Frame{
             Activity.setVisible(true);
         }
     }
+
+    /**Add the {@link Activity}/{@link JPanel} for auto manipulation and Index in control system
+     *
+     * @param ActivityName - {@link String} with name for calling in manipulattion methods
+     * @param Activity - {@link Activity} for add in root and index in control system
+     */
+    public void AddActivity(String ActivityName,Activity Activity){
+        JPanel activity = Activity.Layout();
+        Activitys.put(ActivityName,activity);
+        activity.setName(ActivityName);
+        root.add(activity);
+        if(ActivityName != "Main" || ActivityName != "main"){
+            activity.setVisible(false);
+        }else{
+            activity.setVisible(true);
+        }
+
+    }
+
+    /**
+     *
+     * @return - {@link String} -  list with Activity names for calling
+     */
     public String[] ActivityList(){
         System.out.println("Keys:");
         for(String key: Activitys.keySet()){
@@ -52,6 +95,11 @@ public class Frame{
         }
         return Activitys.keySet().toArray(new String[0]);
     }
+
+    /** Set {@link Activity} visible and disable other activity
+     *
+     * @param ForActivity - {@link Activity} for set Visible
+     */
     public void Alter(String ForActivity){
         if(Activitys.containsKey(ForActivity)){
             for(JPanel pane : Activitys.values()){
@@ -63,6 +111,19 @@ public class Frame{
             System.out.println(String.format("Set Activity:{Name: %s, Size:{H: %s, W: %s}, X: %s, Y:%s}",activity.getName(),activity.getHeight(),activity.getWidth(),activity.getAlignmentX(),activity.getAlignmentY()));
         }
     }
+
+    /**Add the pre-Setting {@link  JPanel} For Assistem Bar Option
+     *
+     * Pre-Setting required:
+     *  |-> Size
+     *  |-> Possition
+     *  |-> Layout = null
+     *
+     * @param OptionBar - {@link JPanel} with pre-Set
+     * @param Orientation - set the {@link Orientation} type {horizontal - vertical}
+     * @param StartIn -  Set if button {@link StartIn} { Up/left = Down/Right}
+     * @param ExitButtonIcon - Set the Icon for Exit Button(FrameClosser)
+     */
 
     public void setOptionBar(JPanel OptionBar,Orientation Orientation, StartIn StartIn, ImageIcon ExitButtonIcon){
         this.OptionBar = OptionBar;
@@ -132,6 +193,12 @@ public class Frame{
         OptionBar.add(exitbutton);
     }
 
+    /**Add new Button Option with Icon and your action
+     *
+     * @param Icon - {@link ImageIcon} for presentation in Layout
+     * @param action - {@link ActionListener} for execute in click
+     */
+
     public void AddOption(ImageIcon Icon, ActionListener action){
         int button_Size = 0;
         int Option_Size = OptionBar.getComponentCount()-1;
@@ -176,24 +243,16 @@ public class Frame{
                     System.out.println(String.format("Button Setting In:{ Size:{ H:%s, W: %s}, X: %s, Y: %s,}",button.getHeight(),button.getWidth(),button.getAlignmentX(),button.getAlignmentY()));
                 }
                 break;
-            case BarManipulator.ExternalManager:
-                ExternalManager(button);
-                break;
         }
         System.out.println("Button Add");
         OptionBar.add(button);
     }
 
-    public void ExternalManager(JButton button){
-
-    }
-
-    enum Orientation{
+    public enum Orientation{
         Vertical,
-        Horizontal,
-        ExternalManager
+        Horizontal
     }
-    enum StartIn{
+    public enum StartIn{
         Up,
         Down;
     }
