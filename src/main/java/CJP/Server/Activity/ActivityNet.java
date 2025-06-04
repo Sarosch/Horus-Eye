@@ -10,7 +10,6 @@ public class ActivityNet implements Activity {
     @Override
     public JPanel Layout(){
         Net = new JPanel();
-
         Net.setBackground(Color.GREEN);
 
         return Net;
