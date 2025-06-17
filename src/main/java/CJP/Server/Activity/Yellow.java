@@ -11,6 +11,7 @@ public class Yellow implements Activity {
     public JPanel Layout(){
         JPanel panel = new JPanel();
         panel.setBackground(Color.YELLOW);
+        panel.add(new JLabel("Yellow"));
         return panel;
     }
 

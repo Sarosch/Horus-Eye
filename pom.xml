@@ -14,6 +14,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.jfxvnc/jfxvnc-net -->
+        <dependency>
+            <groupId>org.jfxvnc</groupId>
+            <artifactId>jfxvnc-net</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.bytedeco/javacv-platform -->
         <dependency>
             <groupId>org.bytedeco</groupId>
@@ -26,6 +32,12 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.49.1.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -33,4 +45,6 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+
 </project>

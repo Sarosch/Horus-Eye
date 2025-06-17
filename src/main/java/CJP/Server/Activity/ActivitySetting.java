@@ -4,10 +4,12 @@ import CJP.Server.Suporte.Activity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,16 +49,13 @@ public class ActivitySetting implements Activity {
         PreSetPoint.put("Firsth",new Point(zero,0));
         PreSetPoint.put("Second",new Point(zero,(int)PanelArea.getHeight()/2));
 
-        Firsth = DefaultSetting(new ActivityNet(),"Firsth");
-        Second = DefaultSetting(new ActivityNet(), "Second");
-
-        Setting.add(Firsth);
-        Setting.add(Second);
+        Setting.add(DefaultSetting(new ActivityDefault(),"Firsth"));
+        Setting.add(DefaultSetting(new ActivityDefault(), "Second"));
 
         Setting.add(SettingCategory);
 
         addCategory("Network",new ActivityNet());
-        addCategory("Blue",new Blue());
+        addCategory("Blue",new ActivityDefault());
         addCategory("Yellow",new Yellow());
 
         return Setting;
@@ -68,7 +67,11 @@ public class ActivitySetting implements Activity {
             if(lastfocus != null) {
                 while (!panels.containsKey(lastfocus)) ;
                 System.out.println(String.format("Transition start in: %s for: %s",lastfocus,activity));
-                Setting.add(DefaultSetting(activity, lastfocus));
+                JPanel New = DefaultSetting(activity, lastfocus);
+                Setting.add(New);
+                New.repaint();
+                New.revalidate();
+                lastfocus = null;
             }
         });
         SettingCategory.add(button);
@@ -103,6 +106,14 @@ public class ActivitySetting implements Activity {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 Component source = e.getComponent();
+                    if(lastfocus != null) {
+                        Collection<JPanel> cleanig = panels.values();
+                        for(JPanel ToClean : cleanig){
+                            ToClean.setBorder(null);
+                        }
+                        panel.setBorder(new LineBorder(Color.red,2));
+
+                    }
                     lastfocus = source.getName();
                     System.out.println(String.format("Panel In Focus: %s",source.getName()));
             }
